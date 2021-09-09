@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: ReplicaSet
+metadata:
+  # name of the replica set
+  name: ghost
+spec:
+  # number of replicas to maintain
+  replicas: 5
+  # selector makes sure that the number of replicas are maintained by referring to the match labels
+  selector:
+    # use pod label, which the selector uses to identify and match the count of replicas
+    matchLabels:
+      # label key/value pair assigned to the resource
+      app: ghost
+  # template to use to bring resource to maintain replicas
+  template:
+    metadata:
+      name: ghost
+      # make sure to assign label to the resource to maintain replicas
+      labels:
+        app: ghost
+    spec:
+      containers:
+      - name: ghost
+        image: ghost
